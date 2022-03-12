@@ -2,7 +2,7 @@
 <html lang="en">
     <?php
    echo "Nama: Rahadi Sudipta";
-   echo "<br>"
+   echo "<br>";
    echo "NIM: 200411100207";
 ?>
 <head>
