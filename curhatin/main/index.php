@@ -9,7 +9,8 @@ $koneksi = mysqli_connect($server, $user, $pass, $database) or die(mysqli_error(
 
 if (isset($_POST['kirim'])){
 	$inputpost = $_POST['inputpost'];
- 	 $simpan = mysqli_query($koneksi, "INSERT INTO thread (username,post) VALUES ('tes4','$inputpost')");
+	$inputjudul= $_POST['inputjudul'];
+ 	 $simpan = mysqli_query($koneksi, "INSERT INTO thread (username,judul,post) VALUES ('tes','$inputjudul','$inputpost')");
   		if($simpan) 
 			{
 				echo "<script>alert('Simpan data suksess!');</script>";
@@ -49,14 +50,18 @@ if (isset($_POST['kirim'])){
 
 	<div class="global-container">
 		<!-- -->
+		<form action="" method="POST" class="form">
 	<div class="card-text">
-	<div class="mb-3">
-	<label for="InputPost" class="form-label"></label>
-	<textarea type="text" class="form-control" id="InputPost" placeholder="Masukkan curahan hati anda" name="inputpost"></textarea>
-	</div>
+		<div class="mb-3">
+            <input type="text" class="form-control" id="Judul" name="inputjudul" placeholder="Judul Curhat" required>
+        </div>
+		<div class="mb-3">
+		<textarea type="text" class="form-control" id="InputPost" placeholder="Masukkan curahan hati anda" name="inputpost"></textarea>
+		</div>
 	<div class="d-grid gap-2">
 		<button type="submit" class="btn btn-primary" name="kirim">Submit</button>
 	</div>
+		</form>
 		<!-- -->
 		<div class="postingan">
 				<?php
@@ -65,6 +70,7 @@ if (isset($_POST['kirim'])){
 							while ($data = mysqli_fetch_assoc($tampil)) {
 				?>
 				<div class="thread">
+					<h5><?php echo $data['judul'];?></h5>
 					<p><?php echo $data['post'];?></p>
 				</div>
 				<?php
