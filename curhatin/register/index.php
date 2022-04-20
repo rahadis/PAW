@@ -13,7 +13,7 @@ if (isset($_POST['submit'])){
 	$nama = $_POST['inputusername'];
 	$email = $_POST['inputemail']; 
 	$password = md5($_POST['inputpassword']);
-    $sql="INSERT INTO users (username,email,password) VALUES ('".$nama."','".$email."','".$password."')";
+    $sql="INSERT INTO users (username,email,password) VALUES ('$nama','$email','$password')";
  	$registrasi = mysqli_query($koneksi,$sql);
   		if($registrasi) 
 			{
@@ -43,7 +43,7 @@ if (isset($_POST['submit'])){
              <h1 class="card-title text-center">R E G I S T E R</h1>
          </div>
     <div class="card-text">
-        <form>
+        <form action="" method="POST" class="form">
         <div class="mb-3">
             <label for="Username" class="form-label">Username</label>
             <input type="text" class="form-control" id="Username" name="inputusername" value="<?php echo $nama; ?>"required>
