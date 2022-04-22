@@ -10,13 +10,17 @@ $koneksi = mysqli_connect($server, $user, $pass, $database) or die(mysqli_error(
 session_start();
 
 if (isset($_POST['submit'])) {
-  $email = $_POST['Email1'];
-  $password = md5($_POST['Password1']);
+  $emailuser = $_POST['inputemail'];
+  $password = md5($_POST['inputpassword']);
 
-  $login = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-  $hasil = mysqli_num_rows($login);
-  if ($hasil>0) {
-      echo "<script>alert('Benar')</script>";
+  $login = "SELECT * FROM users WHERE email='$emailuser' AND password='$password'";
+  $hasil = mysqli_query($koneksi, $login);
+  if ($hasil->num_rows > 0) {
+    $baris = mysqli_fetch_assoc($hasil);
+    $username=$baris['username'];
+    $_SESSION['username'] = $username;
+    echo "<script>alert('Selamat datang $username')</script>";
+    header("Location: main/");
   } else {
       echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!')</script>";
   }
@@ -41,12 +45,12 @@ if (isset($_POST['submit'])) {
     <div class="card-text">
     <form action="" method="POST">
         <div class="mb-3">
-            <label for="Email1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="Email1" aria-describedby="emailHelp" name="Email1" required>
+            <label for="inputemail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="inputemail" aria-describedby="emailHelp" name="inputemail" required>
         </div>
         <div class="mb-3">
-            <label for="Password1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="Password1" name="Password1" required>
+            <label for="inputpassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputpassword" name="inputpassword" required>
         </div>
         <div class="d-grid gap-2">
             <button type="submit" class="btn btn-primary" name="submit">Submit</button>

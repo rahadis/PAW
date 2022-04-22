@@ -6,14 +6,22 @@ $pass = "";
 $database = "curhatin_login";
  
 $koneksi = mysqli_connect($server, $user, $pass, $database) or die(mysqli_error($koneksi));
+session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("Location: ../");
+}
 
 if (isset($_POST['kirim'])){
 	$inputpost = $_POST['inputpost'];
 	$inputjudul= $_POST['inputjudul'];
- 	 $simpan = mysqli_query($koneksi, "INSERT INTO thread (username,judul,post) VALUES ('tes','$inputjudul','$inputpost')");
+	$insert="INSERT INTO thread (username,judul,post) VALUES ('tes','$inputjudul','$inputpost')";
+ 	 $simpan = mysqli_query($koneksi,$insert);
   		if($simpan) 
 			{
 				echo "<script>alert('Simpan data suksess!');</script>";
+				$_POST['inputpost']="";
+				$_POST['inputjudul']="";
 			}
 			else {
 				echo "<script>alert('Comment does not add.')</script>";
@@ -50,18 +58,20 @@ if (isset($_POST['kirim'])){
 
 	<div class="global-container">
 		<!-- -->
-		<form action="" method="POST" class="form">
-	<div class="card-text">
-		<div class="mb-3">
-            <input type="text" class="form-control" id="Judul" name="inputjudul" placeholder="Judul Curhat" required>
-        </div>
-		<div class="mb-3">
-		<textarea type="text" class="form-control" id="InputPost" placeholder="Masukkan curahan hati anda" name="inputpost"></textarea>
-		</div>
+	<div class="scroll">
+	<div class="kolomisi">
+		<form action="#" method="POST" class="form">
+			<div class="mb-3">
+				<input type="text" class="form-control" id="Judul" name="inputjudul" placeholder="Judul Curhat" required>
+			</div>
+			<div class="mb-3">
+				<textarea type="text" class="form-control" id="InputPost" placeholder="Masukkan curahan hati anda" name="inputpost"></textarea>
+			</div>
 	<div class="d-grid gap-2">
 		<button type="submit" class="btn btn-primary" name="kirim">Submit</button>
 	</div>
 		</form>
+	</div>
 		<!-- -->
 		<div class="postingan">
 				<?php
@@ -80,6 +90,6 @@ if (isset($_POST['kirim'])){
 				?>
 		</div>
 	</div>
-	</div> 
+	</div>
 </body>
 </html>

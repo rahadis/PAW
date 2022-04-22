@@ -9,11 +9,9 @@ body{
   justify-content: center;
   color: #025186;
 }
-.post1{
-  height: 100px;
-  border-bottom: #025186 solid;
-  border-radius: 10px;
-  margin: 50px;
+
+.kolomisi{
+  position: relative;
 }
 
 .btn {
@@ -39,8 +37,8 @@ border-radius: 10px !important;
 
 .postingan .thread h5 {
   font-size: 1.3rem;
-  font-weight: 800;
-  color: #111;
+  font-weight: 500;
+  color: #025186;
 }
 
 .postingan .thread p {
